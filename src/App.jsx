@@ -1,24 +1,42 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Dashboard from './scenes/dashboard';
+import FAQ from './scenes/faq';
+import { Login } from './scenes/login';
+import { useState, useContext } from 'react';
+import Layout from './scenes/global/Layout';
 
 function App() {
+  const [authenticated, setAuthenticated] = useState(false);
+
+  const ProtectedRoute = ({ children }) => {
+    if (!authenticated) {
+      return <Navigate to="/login" replace />;
+    }
+
+    return children;
+  };
+
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <p>Choo Choo! This is an example of a Vite + React app running on Railway.</p>
-      </div>
-    </>
-  )
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/FAQ" element={<FAQ />} />
+        <Route
+          path="/login"
+          element={
+            <Login auth={authenticated} setAuth={setAuthenticated} />
+          }
+        />
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+    </Routes>
+  );
 }
 
-export default App
+export default App;
