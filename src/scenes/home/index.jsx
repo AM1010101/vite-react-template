@@ -3,7 +3,7 @@ import { Box, useTheme } from '@mui/material';
 import { tokens } from '../../theme';
 import Header from '../global/Header';
 
-const Dashboard = () => {
+const Home = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -14,7 +14,7 @@ const Dashboard = () => {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Header title="DASHBOARD / DECKS" />
+        <Header title="HOME / LANDING PAGE" />
       </Box>
       <Box
         display="grid"
@@ -34,4 +34,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Home;

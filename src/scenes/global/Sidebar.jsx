@@ -94,7 +94,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
           </MenuItem>
           <Box sx={{ justifyContent: 'space-between' }}>
             <Box paddingLeft={isCollapsed ? undefined : '10%'}>
-              {isCollapsed ? (
+              {/* {isCollapsed ? (
                 <Typography
                   variant="h6"
                   color={colors.grey[300]}
@@ -102,7 +102,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
                 >
                   HOME
                 </Typography>
-              ) : null}
+              ) : null} */}
               <Item
                 title="HOME"
                 to="/"
@@ -110,42 +110,16 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
                 selected={selected}
                 setSelected={setSelected}
               />
-              {isCollapsed ? (
-                <Typography
-                  variant="h6"
-                  color={colors.grey[300]}
-                  sx={{ m: '30px 0 0px 20px' }}
-                >
-                  BLOCK
-                </Typography>
-              ) : null}
 
               <Item
-                title="BLOCK CREATOR"
-                to="/"
-                icon={<SquareIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              {isCollapsed ? (
-                <Typography
-                  variant="h6"
-                  color={colors.grey[300]}
-                  sx={{ m: '30px 0px 0px 20px' }}
-                >
-                  SCENE
-                </Typography>
-              ) : null}
-
-              <Item
-                title="SCENE CEATOR"
-                to="/SceneCreator"
+                title="DECKS"
+                to="/dashboard"
                 icon={<ViewDayIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
 
-              {isCollapsed ? (
+              {/* {isCollapsed ? (
                 <Typography
                   variant="h6"
                   color={colors.grey[300]}
@@ -153,7 +127,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
                 >
                   INFO
                 </Typography>
-              ) : null}
+              ) : null} */}
 
               <Item
                 title="FAQ & DOCs"

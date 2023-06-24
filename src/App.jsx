@@ -4,6 +4,7 @@ import FAQ from './scenes/faq';
 import { Login } from './scenes/login';
 import { useState, useContext } from 'react';
 import Layout from './scenes/global/Layout';
+import Home from './scenes/home';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -19,6 +20,7 @@ function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
         <Route path="/FAQ" element={<FAQ />} />
         <Route
           path="/login"
