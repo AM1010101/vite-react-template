@@ -15,9 +15,10 @@ export function AuthContextProvider({ children }) {
     if (!token) {
       return;
     }
-
+    if (typeof token !== 'string') {
+      return;
+    }
     // Store the JWT token in local storage or a secure cookie
-
     localStorage.setItem('token', token);
     setLoggedIn(true);
   };
