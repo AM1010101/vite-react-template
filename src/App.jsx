@@ -1,10 +1,9 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Dashboard from './scenes/dashboard';
 import FAQ from './scenes/faq';
 import { Login } from './scenes/login';
 import { useState, useContext } from 'react';
 import Layout from './scenes/global/Layout';
-import Home from './scenes/home';
+import Home from './scenes/dashboard copy';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
