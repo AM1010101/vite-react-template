@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { useLogin } from '../../queries/user';
 
-export const Login = ({ auth, setAuth }) => {
+// TODO: validate email and password
+export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const loginMutation = useLogin();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: validate email and password
-    // For now, just set loggedIn to true
-    setAuth(true);
+    loginMutation.mutate({ email, password });
   };
 
-  if (auth === true) {
+  if (loginMutation.isSuccess) {
+    // Handle successful login, e.g., redirect to a dashboard page
+
     return <Navigate to="/dashboard" />;
+  }
+
+  if (loginMutation.isError) {
+    // Handle login error, e.g., display an error message
+    return <div>Error: {loginMutation.error.message}</div>;
   }
 
   return (

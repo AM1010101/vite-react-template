@@ -1,15 +1,17 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useState, useContext } from 'react';
 import FAQ from './scenes/faq';
 import { Login } from './scenes/login';
-import { useState, useContext } from 'react';
 import Layout from './scenes/global/Layout';
-import Home from './scenes/dashboard copy';
+import Home from './scenes/home';
+import Dashboard from './scenes/dashboard';
+import { AuthContext } from './context/authContext';
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(false);
+  const { loggedIn } = useContext(AuthContext);
 
   const ProtectedRoute = ({ children }) => {
-    if (!authenticated) {
+    if (!loggedIn) {
       return <Navigate to="/login" replace />;
     }
 
@@ -21,12 +23,7 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/FAQ" element={<FAQ />} />
-        <Route
-          path="/login"
-          element={
-            <Login auth={authenticated} setAuth={setAuthenticated} />
-          }
-        />
+        <Route path="/login" element={<Login />} />
         <Route
           path="dashboard"
           element={
