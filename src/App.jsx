@@ -1,10 +1,11 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import FAQ from './scenes/faq';
 import { Login } from './scenes/login';
 import Layout from './scenes/global/Layout';
 import Home from './scenes/home';
 import Dashboard from './scenes/dashboard';
+import { Signup } from './scenes/signup';
 import { AuthContext } from './context/authContext';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/FAQ" element={<FAQ />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route
           path="dashboard"
           element={

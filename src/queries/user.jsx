@@ -22,3 +22,28 @@ export function useLogin() {
     },
   });
 }
+
+async function signup(credentials) {
+  const response = await client.post(
+    '/users/add_user_and_login',
+    credentials
+  );
+  return response.data;
+}
+
+export function useSignup() {
+  const { setLogin } = useContext(AuthContext);
+
+  const signupMutation = useMutation(signup, {
+    onSuccess: (data) => {
+      localStorage.setItem('token', data.token);
+      setLogin(data.token);
+      console.log('Signup successful');
+    },
+    onError: () => {
+      console.log('Signup failed');
+    },
+  });
+
+  return signupMutation;
+}
