@@ -7,6 +7,7 @@ import Home from './scenes/home';
 import Dashboard from './scenes/dashboard';
 import { Signup } from './scenes/signup';
 import { AuthContext } from './context/authContext';
+import UserScreen from './scenes/profile';
 
 function App() {
   const { loggedIn } = useContext(AuthContext);
@@ -26,6 +27,7 @@ function App() {
         <Route path="/FAQ" element={<FAQ />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/profile" element={<UserScreen />} />
         <Route
           path="dashboard"
           element={

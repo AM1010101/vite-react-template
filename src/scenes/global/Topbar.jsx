@@ -8,6 +8,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { AuthContext } from '../../context/authContext';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import UserDropdown from '../../components/user/userDropdown';
+import MenuItem from '@mui/material/MenuItem';
 
 const Topbar = ({ isCollapsed, setIsCollapsed }) => {
   const theme = useTheme();
@@ -16,6 +18,9 @@ const Topbar = ({ isCollapsed, setIsCollapsed }) => {
   const { loggedIn, setLogout } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const handleProfileNavigate = () => {
+    navigate('/profile');
+  };
 
   return (
     <Box
@@ -31,6 +36,14 @@ const Topbar = ({ isCollapsed, setIsCollapsed }) => {
       <Box display="flex" alignItems="center">
         {userLogInOutButton()}
         {userSignUpButton()}
+        {loggedIn ? (
+          <UserDropdown>
+            <MenuItem onClick={handleProfileNavigate}>
+              Profile
+            </MenuItem>
+            <MenuItem onClick={setLogout}>Logout</MenuItem>
+          </UserDropdown>
+        ) : null}
       </Box>
     </Box>
   );
@@ -71,9 +84,7 @@ const Topbar = ({ isCollapsed, setIsCollapsed }) => {
     };
     return (
       location.pathname !== '/login' &&
-      (loggedIn ? (
-        <Button onClick={setLogout}>Logout</Button>
-      ) : (
+      (!loggedIn ? (
         <Button
           variant="contained"
           color="inherit"
@@ -81,7 +92,7 @@ const Topbar = ({ isCollapsed, setIsCollapsed }) => {
         >
           Login
         </Button>
-      ))
+      ) : null)
     );
   }
 
