@@ -8,6 +8,7 @@ import Dashboard from './scenes/dashboard';
 import { Signup } from './scenes/signup';
 import { AuthContext } from './context/authContext';
 import UserScreen from './scenes/profile';
+import DeckDetails from './scenes/deckDetails';
 
 function App() {
   const { loggedIn } = useContext(AuthContext);
@@ -36,6 +37,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/decks/:id" element={<DeckDetails />} />
       </Route>
     </Routes>
   );

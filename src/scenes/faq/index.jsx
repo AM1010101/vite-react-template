@@ -13,28 +13,37 @@ const FAQ = () => {
   return (
     <Box m="20px">
       <Header
-        title="FAQ & DOCs"
-        subtitle="Frequently Asked Questions and Documentation"
+        title="ABOUT"
+        subtitle="About and Frequently Asked Questions"
       />
 
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography color={colors.greenAccent[500]} variant="h5">
-            Github
+            How am I charged?
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            <a href="https://github.com" target="blank">
-              github.com
-            </a>
+            <div>
+              <p>
+                You are charged based on the number of cards you have
+                in your deck. The first 100 cards are free. After
+                that, you are charged $0.01 per card per month.
+              </p>
+              <p>
+                you are also charged for generating a new deck. The
+                first deck is free. After that, you are charged $0.01
+                per deck per month.
+              </p>
+            </div>
           </Typography>
         </AccordionDetails>
       </Accordion>
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography color={colors.greenAccent[500]} variant="h5">
-            System Diagram
+            How does the system work?
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
