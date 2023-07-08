@@ -1,26 +1,22 @@
 import React from 'react';
-import { makeStyles } from '@mui/styles';
-import { Card, CardContent } from '@mui/material';
 
-const useStyles = makeStyles(() => ({
-  scrollableList: {
+const HorizontalScrollableList = ({ children }) => {
+  const scrollableListStyle = {
     display: 'flex',
     overflowX: 'auto',
     padding: '10px',
-  },
-  card: {
-    minWidth: 150,
-    marginRight: 10,
-  },
-}));
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  };
 
-const HorizontalScrollableList = ({ children }) => {
-  const classes = useStyles();
+  const cardStyle = {
+    marginRight: '10px',
+  };
 
   return (
-    <div className={classes.scrollableList}>
+    <div style={scrollableListStyle}>
       {React.Children.map(children, (child, index) => (
-        <CardContent>{child}</CardContent>
+        <div style={cardStyle}>{child}</div>
       ))}
     </div>
   );
