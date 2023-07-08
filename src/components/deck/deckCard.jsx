@@ -3,7 +3,7 @@ import { Card, CardContent, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/material';
 
-const DeckCard = ({ title, description, numberOfCards, deckId }) => {
+const DeckCard = ({ name, description, numberOfCards, id }) => {
   const theme = useTheme();
 
   return (
@@ -22,9 +22,9 @@ const DeckCard = ({ title, description, numberOfCards, deckId }) => {
       }}
     >
       <Link
-        to={`/decks/${deckId}`}
+        to={`/decks/${id}`}
         state={{
-          title,
+          name,
           description,
           numberOfCards,
         }}
@@ -36,13 +36,14 @@ const DeckCard = ({ title, description, numberOfCards, deckId }) => {
             component="div"
             color="text.primary"
           >
-            {title}
+            {name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {description}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Number of cards: {numberOfCards}
+            Number of cards:{' '}
+            {numberOfCards ? numberOfCards : 'unknown'}
           </Typography>
         </CardContent>
       </Link>

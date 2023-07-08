@@ -1,70 +1,31 @@
-import React from 'react';
-import { Box, useTheme, List } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Box, useTheme, Button } from '@mui/material';
 import { tokens } from '../../theme';
 import Header from '../global/Header';
 import DeckCard from '../../components/deck/deckCard';
 import HorizontalScrollableList from '../../components/generic/horizontalScroll';
+import { useGetDecks } from '../../queries/decks';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { decks, error, isLoading, mutate } = useGetDecks();
 
-  const decks = [
-    {
-      title: 'Mathematics',
-      description:
-        'Learn mathematical concepts and problem-solving techniques.',
-      numberOfCards: 20,
-      deckId: '1',
-    },
-    {
-      title: 'Science',
-      description: 'Explore the wonders of the natural world.',
-      numberOfCards: 15,
-      deckId: '2',
-    },
-    {
-      title: 'History',
-      description: 'Discover the events that shaped our world.',
-      numberOfCards: 30,
-      deckId: '3',
-    },
-    {
-      title: 'Geography',
-      description:
-        'Explore the diverse landscapes and cultures of the world.',
-      numberOfCards: 25,
-      deckId: '4',
-    },
-    {
-      title: 'Language Learning',
-      description:
-        'Enhance your language skills and learn new vocabulary.',
-      numberOfCards: 10,
-      deckId: '5',
-    },
-    {
-      title: 'Cooking',
-      description: 'Master the art of cooking delicious meals.',
-      numberOfCards: 25,
-      deckId: '6',
-    },
-    {
-      title: 'Politics',
-      description:
-        'Gain insights into political systems and ideologies.',
-      numberOfCards: 15,
-      deckId: '7',
-    },
-    {
-      title: 'Becoming an Influencer',
-      description:
-        'Learn strategies to grow your online presence and engage your audience.',
-      numberOfCards: 20,
-      deckId: '8',
-    },
-  ];
+  const handleFetchDecks = () => {
+    mutate(); // Trigger the mutation to fetch the decks
+  };
 
+  useEffect(() => {
+    handleFetchDecks();
+  }, []);
+
+  const handleRefresh = () => {
+    console.log('Refresh');
+    handleFetchDecks();
+  };
+
+  console.log(decks?.data);
   return (
     <Box m="20px">
       <Box
@@ -73,29 +34,36 @@ const Dashboard = () => {
         alignItems="center"
       >
         <Header title="DASHBOARD / DECKS" />
+        <Button variant="contained" onClick={handleRefresh}>
+          Refresh
+        </Button>
       </Box>
-      <Box
-        display="grid"
-        gridTemplateColumns="repeat(12, 2fr)"
-        gridAutoRows="140px"
-        gap="20px"
-      >
+      {isLoading && <CircularProgress />}
+      {error && <div>Error: {error.message}</div>}
+      {!isLoading && !error && (
         <Box
-          gridColumn="span 12"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="start"
-          overflow="hidden"
+          display="grid"
+          gridTemplateColumns="repeat(12, 2fr)"
+          gridAutoRows="140px"
+          gap="20px"
         >
-          <HorizontalScrollableList>
-            {decks.map((deck, index) => (
-              <DeckCard key={index} {...deck} />
-            ))}
-          </HorizontalScrollableList>
+          <Box
+            gridColumn="span 12"
+            gridRow="span 2"
+            backgroundColor={colors.primary[400]}
+            display="flex"
+            alignItems="center"
+            justifyContent="start"
+            overflow="hidden"
+          >
+            <HorizontalScrollableList>
+              {decks?.data?.map((deck, index) => (
+                <DeckCard key={index} {...deck} />
+              ))}
+            </HorizontalScrollableList>
+          </Box>
         </Box>
-      </Box>
+      )}
     </Box>
   );
 };
