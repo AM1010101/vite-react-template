@@ -4,28 +4,21 @@ import { useLocation } from 'react-router-dom';
 import HorizontalScrollableList from '../../components/generic/horizontalScroll';
 import { Box } from '@mui/material';
 import AnkiCard from '../../components/card/cardCard';
+import AddCard from '../../components/card/addCard';
+import { useGetCards } from '../../queries/cards';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const DeckDetails = () => {
   const location = useLocation();
   const { title, description, numberOfCards } = location.state || {};
-  console.log(location.state);
-  const { id } = useParams(); // Access the deck id from the route parameters
-
-  // create a list of cards
-  const cards = [
-    {
-      question: 'What is the capital of France?',
-      answer: 'Paris',
-    },
-    {
-      question: 'What is the capital of Spain?',
-      answer: 'Madrid',
-    },
-    {
-      question: 'What is the capital of Germany?',
-      answer: 'Berlin',
-    },
-  ];
+  const { id } = useParams();
+  const { cards, error, isLoading, fetchCards } = useGetCards();
+  const handleFetchCards = async () => {
+    await fetchCards({ deck_id: id });
+  };
+  React.useEffect(() => {
+    handleFetchCards();
+  }, []);
 
   return (
     <Box m="20px">
@@ -33,15 +26,21 @@ const DeckDetails = () => {
       <p>ID: {id}</p>
       <p>Title: {title}</p>
       <p>Description: {description}</p>
-      <p>Number of Cards: {numberOfCards}</p>
+      <p>Number of Cards: </p>
+
+      {error && <div>Error: {error.message}</div>}
+
       <HorizontalScrollableList>
-        {cards.map((card, index) => (
-          <AnkiCard
-            key={index}
-            question={card.question}
-            answer={card.answer}
-          />
-        ))}
+        <AddCard deckId={id} />
+        {isLoading && <CircularProgress />}
+        {cards &&
+          cards?.map((card, index) => (
+            <AnkiCard
+              key={index}
+              question={card.front_text}
+              answer={card.back_text}
+            />
+          ))}
       </HorizontalScrollableList>
     </Box>
   );
