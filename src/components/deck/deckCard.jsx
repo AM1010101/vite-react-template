@@ -27,6 +27,7 @@ const DeckCard = ({ name, description, numberOfCards, id }) => {
           name,
           description,
           numberOfCards,
+          id,
         }}
         style={{ textDecoration: 'none' }}
       >
