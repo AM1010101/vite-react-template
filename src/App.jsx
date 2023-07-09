@@ -29,7 +29,14 @@ function App() {
         <Route path="/FAQ" element={<FAQ />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/profile" element={<UserScreen />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <UserScreen />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="dashboard"
           element={
@@ -38,8 +45,22 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/decks/:id" element={<DeckDetails />} />
-        <Route path="/add_deck" element={<AddDeck />} />
+        <Route
+          path="/decks/:id"
+          element={
+            <ProtectedRoute>
+              <DeckDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add_deck"
+          element={
+            <ProtectedRoute>
+              <AddDeck />
+            </ProtectedRoute>
+          }
+        />
       </Route>
     </Routes>
   );
