@@ -2,19 +2,22 @@ import React, { useState } from 'react';
 import { TextField, Button, Card, CardContent } from '@mui/material';
 import { useCreateCard } from '../../queries/cards';
 
-const AddCard = (deckId) => {
+const AddCard = ({ deckId, onSubmit }) => {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const loginMutation = useCreateCard();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    loginMutation.mutate({
+    await loginMutation.mutate({
       front_text: question,
       back_text: answer,
       tags: ['card', 'user'],
-      deck_id: deckId['deckId'],
+      deck_id: deckId,
     });
+    setQuestion('');
+    setAnswer('');
+    onSubmit();
   };
 
   const handleQuestionChange = (event) => {
