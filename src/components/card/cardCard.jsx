@@ -16,7 +16,7 @@ const AnkiCard = ({ question, answer }) => {
       className={`anki-card ${isFlipped ? 'flipped' : ''}`}
       sx={{
         width: 300,
-        height: 200,
+        height: 220,
         cursor: 'pointer',
         transition: 'transform 0.6s',
         transformStyle: 'preserve-3d',
