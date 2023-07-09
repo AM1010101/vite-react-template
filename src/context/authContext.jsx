@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
+import jwtDecode from 'jwt-decode';
 
 export const AuthContext = createContext();
+
 export function AuthContextProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -18,7 +20,12 @@ export function AuthContextProvider({ children }) {
     if (typeof token !== 'string') {
       return;
     }
-    // Store the JWT token in local storage or a secure cookie
+
+    const isTokenValid = checkTokenExpired(token);
+    if (!isTokenValid) {
+      return;
+    }
+
     localStorage.setItem('token', token);
     setLoggedIn(true);
   };
@@ -39,4 +46,14 @@ export function AuthContextProvider({ children }) {
       {children}
     </AuthContext.Provider>
   );
+}
+
+export function checkTokenExpired(token) {
+  const decodedToken = jwtDecode(token);
+  const currentTime = Date.now() / 1000; // Convert milliseconds to seconds
+  if (decodedToken.exp < currentTime) {
+    // Token has expired
+    return false;
+  }
+  return true;
 }
