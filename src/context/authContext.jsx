@@ -7,22 +7,35 @@ export function AuthContextProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Check if the user is logged in (e.g., by checking the presence of a token in local storage)
     const token = localStorage.getItem('token');
     setLoggedIn(!!token);
+
+    // Check token validity periodically
+    const tokenCheckInterval = setInterval(() => {
+      if (token) {
+        const isTokenValid = checkTokenExpired(token);
+        if (!isTokenValid) {
+          setLogout();
+        }
+      }
+    }, 60000); // Check every minute (adjust as needed)
+
+    return () => {
+      clearInterval(tokenCheckInterval); // Clean up the interval on component unmount
+    };
   }, []);
 
   const setLogin = (token) => {
-    // check if the token is defined
     if (!token) {
+      setLogout();
       return;
     }
     if (typeof token !== 'string') {
+      setLogout();
       return;
     }
-
-    const isTokenValid = checkTokenExpired(token);
-    if (!isTokenValid) {
+    if (!checkTokenExpired(token)) {
+      setLogout();
       return;
     }
 
