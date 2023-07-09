@@ -13,9 +13,11 @@ const DeckDetails = () => {
   const { title, description, numberOfCards } = location.state || {};
   const { id } = useParams();
   const { cards, error, isLoading, fetchCards } = useGetCards();
-  const handleFetchCards = async () => {
+
+  async function handleFetchCards() {
     await fetchCards({ deck_id: id });
-  };
+  }
+
   React.useEffect(() => {
     handleFetchCards();
   }, []);
@@ -31,7 +33,7 @@ const DeckDetails = () => {
       {error && <div>Error: {error.message}</div>}
 
       <HorizontalScrollableList>
-        <AddCard deckId={id} />
+        <AddCard deckId={id} onSubmit={() => handleFetchCards()} />
         {isLoading && <CircularProgress />}
         {cards &&
           cards?.map((card, index) => (
