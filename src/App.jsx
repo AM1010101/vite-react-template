@@ -9,6 +9,7 @@ import { Signup } from './scenes/signup';
 import { AuthContext } from './context/authContext';
 import UserScreen from './scenes/profile';
 import DeckDetails from './scenes/deckDetails';
+import AddDeck from './components/deck/addDeck';
 
 function App() {
   const { loggedIn } = useContext(AuthContext);
@@ -38,6 +39,7 @@ function App() {
           }
         />
         <Route path="/decks/:id" element={<DeckDetails />} />
+        <Route path="/add_deck" element={<AddDeck />} />
       </Route>
     </Routes>
   );

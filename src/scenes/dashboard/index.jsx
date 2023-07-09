@@ -6,6 +6,7 @@ import DeckCard from '../../components/deck/deckCard';
 import HorizontalScrollableList from '../../components/generic/horizontalScroll';
 import { useGetDecks } from '../../queries/decks';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -64,6 +65,15 @@ const Dashboard = () => {
           </Box>
         </Box>
       )}
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Button component={Link} to="/add_deck" variant="contained">
+          Add Deck
+        </Button>
+      </Box>
     </Box>
   );
 };
